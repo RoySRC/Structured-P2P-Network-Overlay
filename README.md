@@ -1,4 +1,4 @@
-## Structured-P2P-Network-Overlay
+# Structured-P2P-Network-Overlay
 
 The objective of this project is to get familiar with coding in a 
 distributed setting where we need to manage the underlying 
