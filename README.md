@@ -66,21 +66,38 @@ when a messaging node starts for the first time.
 * Assign random identifiers (between 0-127) to nodes within the 
 system; the registry also has to ensure that no two nodes are 
 assigned the same ID.
-* Allows messaging nodes to deregister themselves. This is performed 
-when a messaging node leaves the overlay.
-* Enables the construction of the overlay by populating the routing 
-table at the messaging nodes. The routing table dictates the 
-connections that a messaging node initiates with other messaging
-nodes in the system.
+* Allows messaging nodes to deregister themselves. This is 
+performed when a messaging node leaves the overlay.
+* Enables the construction of the overlay by populating the 
+routing table at the messaging nodes. The routing table 
+dictates the connections that a messaging node initiates with 
+other messaging nodes in the system.
 
 The registry maintains information about the registered messaging 
 nodes. The registry does not play any role in the routing of data 
 within the overlay. Interactions between the messaging nodes and 
 the registry are via request-response messages. For each request 
-that it receives from the messaging nodes, the registry will send a 
-response back to the messaging node (based on the IP address 
+that it receives from the messaging nodes, the registry will send
+a response back to the messaging node (based on the IP address 
 associated with the socket’s input stream) where the request 
-originated. The contents of this response depend on the type of the 
-request and the outcome of processing this request.
+originated. The contents of this response depend on the type of 
+the request and the outcome of processing this request.
 
-#### 
+#### Messaging Node
+There are multiple messaging nodes in the system. A messaging 
+node provides two closely related functions: it initiates and 
+accepts both communications and control messages within the 
+system.
+
+Each messaging node automatically configures the port over 
+which it listens for communications. Once the initialization is 
+complete, the node should send a registration request to the 
+registry. Each node in the system has a routing table that is 
+used to route content to the sink. This routing table contains 
+information about a subset of nodes in the system. Messaging 
+nodes use this routing table to forward packets to the sink 
+specified in the message. Every messaging node makes local 
+decisions based on its routing table to get the packets closer 
+to the sink.
+
+## Interaction between components
