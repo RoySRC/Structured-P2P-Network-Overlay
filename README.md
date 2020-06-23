@@ -403,7 +403,7 @@ The start command results in the registry sending the
 overlay. A command of start 25000 results in each messaging
 node sending 25000 packets to nodes chosen at random. A detailed
 description of the sequence of actions that this triggers 
-is provided ![here](#setting).
+is provided [here](#setting).
 
 ##### set-wait-time
 This sets the wait time before collecting traffic summary. The
