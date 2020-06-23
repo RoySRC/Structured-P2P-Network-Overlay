@@ -152,3 +152,24 @@ will not be able to communicate with it. In this case, the
 entry for the messaging node is removed from the data structure
 maintained at the registry.
 
+#### Deregistration message type
+When a messaging node exits it it deregisters itself. This is
+done by sending a deregistration message to the registry. This
+deregistration request includes the following fields:
+```
+byte: Message Type (OVERLAY_NODE_SENDS_DEREGISTRATION)
+byte: length of following "IP address" field
+byte[^^]: IP address; from InetAddress.getAddress()
+int: Port number
+int: assigned Node ID
+```
+
+The registry checks if the request is valid by checking where
+the message originated and if the node was previously
+registered. Error messages are returned in case of a mismatch
+in the addresses or if the messaging node is not registered
+with the overlay. The registry will respond with a
+`REGISTRY_REPORTS_DEREGISTRATION_STATUS` control message that is
+similar to the `REGISTRY_REPORTS_REGISTRATION_STATUS` message.
+
+#### 
