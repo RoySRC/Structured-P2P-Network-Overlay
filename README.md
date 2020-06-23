@@ -581,7 +581,7 @@ integer values. These integer values are the types of the
 control messages that are sent to and from the registry and in
 between the messaging nodes
 
-####EventFactory
+#### EventFactory
 Singleton class containing the `createEvent()` public method
 , that returns a new wireformat class instance depending on the
 type of the marshalled byte passed to this method as argument.
