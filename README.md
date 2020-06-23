@@ -378,12 +378,12 @@ The following values for control messages are used:
 
 ## Supported Commands
 #### Commands supported by the registry
-#####list-messaging-nodes
+##### list-messaging-nodes
 This result in information about the messaging nodes (hostname
 , port-number, and node ID) being listed. Information for each
  messaging node should be listed on a separate line.
 
-#####setup-overlay <number-of-routing-table-entries>
+##### setup-overlay <number-of-routing-table-entries>
 This results in the registry setting up the overlay. It
 does so by sending every messaging node the
 `REGISTRY_SENDS_NODE_MANIFEST` message that contains
@@ -392,12 +392,12 @@ also information about other nodes in the system. This does not
 deal with the case where a messaging node is added or removed
 after the overlay has been set up.
 
-#####list-routing-tables
+##### list-routing-tables
 This lists information about the computed routing tables
 for each node in the overlay. Each messaging node’s information
 includes the node’s IP address, portnum, and logical-ID.
 
-#####start number-of-messages (e.g. start 25000)
+##### start number-of-messages (e.g. start 25000)
 The start command results in the registry sending the 
 `REGISTRY_REQUESTS_TASK_INITIATE` to all nodes within the
 overlay. A command of start 25000 results in each messaging
@@ -473,7 +473,7 @@ is repeats by choosing another node at random. The number of
 rounds that each node will participate in is specified in the
 `REGISTRY_REQUESTS_TASK_INITIATE` command. 
 
-####Tracking communications between nodes
+#### Tracking communications between nodes
 Each node maintains two integer variables that are initialized
 to zero: sendTracker and receiveTracker. The sendTracker
 represents the number of data packets that were sent by that
