@@ -751,8 +751,7 @@ are put in this SortedArrayList it always sorted in ascending
 order.
 
 #### LOGGER
-This is the logger used throughout the assignment for debugging
-.
+This is the logger used throughout the project for debugging.
 
 #### TCPServerThread
 This class implements the Runnable interface. This class starts
