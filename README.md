@@ -355,3 +355,66 @@ messages, etcetera.
 The figure below depicts the exchange of messages between the registry and a particular messaging
 node in the system.
 ![](./readme_files/summary_message_exchanges.png)
+
+#### Values for the control messages
+The following values for control messages are used:
+```
+ OVERLAY_NODE_SENDS_REGISTRATION            2
+ REGISTRY_REPORTS_REGISTRATION_STATUS       3
+   
+ OVERLAY_NODE_SENDS_DEREGISTRATION          4
+ REGISTRY_REPORTS_DEREGISTRATION_STATUS     5
+ 
+ REGISTRY_SENDS_NODE_MANIFEST               6
+ NODE_REPORTS_OVERLAY_SETUP_STATUS          7
+ 
+ REGISTRY_REQUESTS_TASK_INITIATE            8
+ OVERLAY_NODE_SENDS_DATA                    9
+ OVERLAY_NODE_REPORTS_TASK_FINISHED         10
+ 
+ REGISTRY_REQUESTS_TRAFFIC_SUMMARY          11
+ OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY       12 
+```
+
+## Supported Commands
+#### Commands supported by the registry
+#####list-messaging-nodes
+This result in information about the messaging nodes (hostname
+, port-number, and node ID) being listed. Information for each
+ messaging node should be listed on a separate line.
+
+#####setup-overlay <number-of-routing-table-entries>
+This results in the registry setting up the overlay. It
+does so by sending every messaging node the
+`REGISTRY_SENDS_NODE_MANIFEST` message that contains
+information about the routing table specific to that node and
+also information about other nodes in the system. This does not
+deal with the case where a messaging node is added or removed
+after the overlay has been set up.
+
+#####list-routing-tables
+This lists information about the computed routing tables
+for each node in the overlay. Each messaging node’s information
+includes the node’s IP address, portnum, and logical-ID.
+
+#####start number-of-messages (e.g. start 25000)
+The start command results in the registry sending the 
+`REGISTRY_REQUESTS_TASK_INITIATE` to all nodes within the
+overlay. A command of start 25000 results in each messaging
+node sending 25000 packets to nodes chosen at random. A detailed
+description of the sequence of actions that this triggers 
+is provided in [citation needed].
+
+#### Commands supported by the messaging nodes
+#####print-counters-and-diagnostics
+This prints information (to the console using System.out) about
+the number of messages that have been sent, received, and
+relayed along with the sums for the messages that have been
+sent from and received at the node.
+
+#####exit-overlay
+This allows a messaging node to exit the overlay. The messaging
+node first sends a deregistration message to the registry and
+await a response before exiting and terminating the process.
+
+## 
