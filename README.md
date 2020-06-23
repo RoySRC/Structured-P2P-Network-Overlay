@@ -172,4 +172,186 @@ with the overlay. The registry will respond with a
 `REGISTRY_REPORTS_DEREGISTRATION_STATUS` control message that is
 similar to the `REGISTRY_REPORTS_REGISTRATION_STATUS` message.
 
-#### 
+#### Peer node manifest message type
+Once the **setup-overlay** command is specified at the registry it
+performs a series of actions that lead to the creation of the
+overlay with a routing table being installed at every node.
+Afterwards, messaging nodes initiate connections with each other
+. Messaging nodes await instructions from the registry
+regarding other messaging nodes to connect to – messaging
+nodes only initiate connections to nodes that are part of its
+routing table. 
+
+The registry must ensure two properties. First, it must ensure
+that the size of the routing table at every messaging node in
+the overlay is identical; this is a configurable metric (with a
+default value of 3) and is specified as part of the **setup
+-overlay** command. 
+
+If the routing table size requirement for the overlay is 
+![](https://latex.codecogs.com/gif.latex?\inline&space;N_{R})
+ , each messaging node will have links to 
+![](https://latex.codecogs.com/gif.latex?\inline&space;N_{R})
+other messaging nodes in the overlay. The registry selects these
+![](https://latex.codecogs.com/gif.latex?\inline&space;N_{R})
+messaging nodes that constitute the peer-messaging nodes list
+for a messaging node such that the first entry is one hop away
+in the ID space, the second entry is two hops away, and the
+third entry is 4 hops away. Consider a network overlay
+comprising nodes with the following identifiers: 10, 21, 32, 43
+, 54, 61, 77, 87, 99, 101, 103. The routing table at 10
+includes information about nodes <21, 32, and 54> while the
+routing table at node 101 includes information about nodes <103
+, 10, 32>; notice how the ID space wraps around after 103. A
+messaging node initiates connections to all nodes that are part
+of its routing table. A messaging node should never be connect
+to itself. The registry also informs each node about the IDs
+of all nodes in the system. This information is used in the
+testing part of the overlay to randomly select sink nodes
+that messages should be sent to. The registry includes all this
+information in a `REGISTRY_SENDS_NODE_MANIFEST` message. The
+contents of the manifest message are different for each
+messaging node (since the routing table at every messaging node
+is different). The wire format is shown when 
+![](https://latex.codecogs.com/gif.latex?\inline&space;N_{R}=3)
+, if 
+![](https://latex.codecogs.com/gif.latex?\inline&space;N_{R}=4)
+there will also be an entry for a node
+![](https://latex.codecogs.com/gif.latex?\inline&space;2^{N_{R}-1})
+hops away.
+```
+byte: Message type; REGISTRY_SENDS_NODE_MANIFEST
+byte: routing table size N R
+int: Node ID of node 1 hop away
+byte: length of following "IP address" field
+byte[^^]: IP address of node 1 hop away; from InetAddress.getAddress()
+int: Port number of node 1 hop away
+int: Node ID of node 2 hops away
+byte: length of following "IP address" field
+byte[^^]: IP address of node 2 hops away; from InetAddress.getAddress()
+int: Port number of node 2 hops away
+int: Node ID of node 4 hops away
+byte: length of following "IP address" field
+byte[^^]: IP address of node 4 hops away; from InetAddress.getAddress()
+int: Port number of node 4 hops away
+byte: Number of node IDs in the system
+int[^^]: List of all node IDs in the system [Note no IPs are included]
+```
+Note that the manifest message includes IP addresses only for
+nodes within a particular node’s routing table. Upon receipt of
+the manifest from the registry, each messaging node initiates
+connections to the nodes that comprise its routing table.
+
+#### Node overlay setup message
+Upon receipt of the `REGISTRY_SENDS_NODE_MANIFEST` from the
+registry, each messaging node should initiate connections to
+the nodes in its routing table. Every messaging node must
+report to the registry on the status of setting up connections
+to nodes that are part of its routing table. The message schema
+is outlined below
+```
+byte: Message type (NODE_REPORTS_OVERLAY_SETUP_STATUS)
+int: Success status; Assigned ID if successful, -1 in case of a failure
+byte: Length of following "Information string" field
+byte[^^]: Information string; ASCII charset
+```
+
+#### Initiate sending messages message
+The registry informs nodes in the overlay when to start sending
+messages to each other. It does so via the
+`REGISTRY_REQUESTS_TASK_INITIATE` control message. This message
+also includes the number of packets that must be sent by each
+messaging node.
+```
+byte: Message type; REGISTRY_REQUESTS_TASK_INITIATE
+int: Number of data packets to send
+```
+
+#### Send data packets message
+Data packets can be fed into the overlay from any messaging
+node within the system. Packets are sent from a source to a
+sink; it is possible that there might be zero or more
+intermediate nodes in the system that relay packets en route to
+the sink. Every node tracks the number of messages that it has
+relayed during communications within the overlay.
+
+When a packet is ready to be sent from a source to the sink
+, the source node consults its routing table to identify the
+best node that it should send the packet to. There are two
+situations: there is an entry for the sink in the routing table
+, or the sink does not exist in the routing table and the
+messaging node must relay the packet to the closest node to the
+sink. Routing decisions only target nodes that are clockwise
+successors. 
+
+A key requirement for the dissemination of packets within the
+overlay is that no messaging node should receive the same
+packet more than once.
+```
+byte: Message type; OVERLAY_NODE_SENDS_DATA
+int: Destination ID
+int: Source ID
+int: Payload
+int: Dissemination trace field length (number of hops)
+int[^^]: Dissemination trace comprising nodeIDs that the packet traversed
+through
+```
+
+The dissemination trace includes nodes (except the source and
+sink) that were involved in routing the particular packet.
+
+#### Inform registry of task completion
+Once a node has completed its task of sending a certain number
+of messages, it informs the registry of its task completion
+using the `OVERLAY_NODE_REPORTS_TASK_FINISHED` message.
+This message should have the following format:
+```
+byte: Message type; OVERLAY_NODE_REPORTS_TASK_FINISHED
+byte: length of following "IP address" field
+byte[^^]: Node IP address:
+int: Node Port number:
+int: nodeID
+```
+
+#### Retrieve traffic summaries from nodes
+Once the registry has received
+`OVERLAY_NODE_REPORTS_TASK_FINISHED` messages from all the
+registered nodes it will issue a
+`REGISTRY_REQUESTS_TRAFFIC_SUMMARY message`. This message is sent
+to all the registered nodes in the overlay. This message will
+have the following format.
+```
+byte: Message Type; REGISTRY_REQUESTS_TRAFFIC_SUMMARY
+```
+
+#### Sending traffic summaries from the nodes to the registry
+Upon receipt of the `REGISTRY_REQUESTS_TRAFFIC_SUMMARY` message
+from the registry, the messaging node creates a response
+that includes summaries of the traffic that it has participated
+in. The summary includes information about messages that
+were sent, received, and relayed by the node. This message will
+have the following format.
+```
+byte: Message type; OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY
+int: Assigned node ID
+int: Total number of packets sent
+(only the ones that were started/initiated by the node)
+int: Total number of packets relayed
+(received from a different node and forwarded)
+long: Sum of packet data sent
+(only the ones that were started by the node)
+int: Total number of packets received
+(packets with this node as final destination)
+long: Sum of packet data received
+(only packets that had this node as final destination)
+```
+Once the `OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY` message is sent
+to the registry, the node must reset the counters associated
+with traffic relating to the messages it has sent, relayed, and
+received so far: the number of messages sent, summation of sent
+messages, etcetera.
+
+#### Summary of Messages Exchanged between the registry and node
+The figure below depicts the exchange of messages between the registry and a particular messaging
+node in the system.
+![](./readme_files/summary_message_exchanges.png)
