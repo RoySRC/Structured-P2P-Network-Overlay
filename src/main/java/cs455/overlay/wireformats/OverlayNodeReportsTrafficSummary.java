@@ -2,7 +2,7 @@ package cs455.overlay.wireformats;
 
 import java.io.*;
 
-public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
+public class OverlayNodeReportsTrafficSummary implements Event {
 
 	public int nodeID;							// ID of the messaging node
 	public int num_sent_packets;				// total number of packets sent by the messaging node
@@ -49,7 +49,7 @@ public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY;
+		return Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY.getType();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY ); // write the message type
+		dout.writeByte( Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY.getType() ); // write the message type
 		dout.writeInt( 55 );
 		dout.writeInt( 1200 );
 		dout.writeInt( 1300 );

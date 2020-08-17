@@ -2,14 +2,14 @@ package cs455.overlay.wireformats;
 
 import java.io.*;
 
-public class RegistryRequestsTrafficSummary implements Event, Protocol {
+public class RegistryRequestsTrafficSummary implements Event {
 
 	public RegistryRequestsTrafficSummary() {}
 	public RegistryRequestsTrafficSummary(byte[] marshalledBytes) {}
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY;
+		return Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY.getType();
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class RegistryRequestsTrafficSummary implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY ); // write the message type
+		dout.writeByte( Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY.getType() ); // write the message type
 		dout.writeInt( 55 );
 		dout.writeInt( 1200 );
 		dout.writeInt( 1300 );

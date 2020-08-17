@@ -2,7 +2,7 @@ package cs455.overlay.wireformats;
 
 import java.io.*;
 
-public class RegistryReportsDeregistrationStatus implements Event, Protocol {
+public class RegistryReportsDeregistrationStatus implements Event {
 
 	private int type;
 	public int successStatus;
@@ -32,7 +32,7 @@ public class RegistryReportsDeregistrationStatus implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS;
+		return Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS.getType();
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class RegistryReportsDeregistrationStatus implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS ); // write the message type
+		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS.getType() ); // write the message type
 		dout.writeInt( 55 ); // write the success status
 		dout.writeByte( informationString.length() );	// write length of informationString
 		dout.writeBytes(informationString);	// write the information string

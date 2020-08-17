@@ -4,7 +4,7 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class RegistryReportsRegistrationStatus implements Event, Protocol {
+public class RegistryReportsRegistrationStatus implements Event {
 
 	public int successStatus;
 	public String informationString;
@@ -30,7 +30,7 @@ public class RegistryReportsRegistrationStatus implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS;
+		return Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS.getType();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class RegistryReportsRegistrationStatus implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS ); // write the message type
+		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS.getType() ); // write the message type
 		dout.writeInt( 55 ); // write the success status
 		dout.writeByte( informationString.length() );	// write length of informationString
 		dout.writeBytes(informationString);	// write the information string

@@ -4,7 +4,7 @@ import cs455.overlay.util.Util;
 
 import java.io.*;
 
-public class OverlayNodeReportsTaskFinished implements Event, Protocol {
+public class OverlayNodeReportsTaskFinished implements Event {
 
 	public String ip_address;
 	public int port;
@@ -34,7 +34,7 @@ public class OverlayNodeReportsTaskFinished implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED;
+		return Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED.getType();
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class OverlayNodeReportsTaskFinished implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED );
+		dout.writeByte( Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED.getType() );
 		dout.writeByte( IP.length() );
 		dout.writeBytes( IP );
 		dout.writeInt( 5000 );

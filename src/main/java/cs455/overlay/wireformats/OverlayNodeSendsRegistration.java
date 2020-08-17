@@ -4,7 +4,7 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class OverlayNodeSendsRegistration implements Event, Protocol{
+public class OverlayNodeSendsRegistration implements Event{
 
 	public String ip_address; // ip address of the client running on the messaging node
 	public int port; // this is the port of the server running on the messaging node
@@ -43,7 +43,7 @@ public class OverlayNodeSendsRegistration implements Event, Protocol{
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_SENDS_REGISTRATION;
+		return Protocol.OVERLAY_NODE_SENDS_REGISTRATION.getType();
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class OverlayNodeSendsRegistration implements Event, Protocol{
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_REGISTRATION ); // write the message type
+		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_REGISTRATION.getType() ); // write the message type
 		dout.writeByte( IP.length() ); // write the length of the ip string
 		dout.writeBytes( IP );	// write ip string
 		dout.writeInt(5000);	// write port number

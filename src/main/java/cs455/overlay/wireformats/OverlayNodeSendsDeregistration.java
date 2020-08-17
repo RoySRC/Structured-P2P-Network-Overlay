@@ -4,7 +4,7 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class OverlayNodeSendsDeregistration implements Event, Protocol {
+public class OverlayNodeSendsDeregistration implements Event {
 
 	public int type;
 	public String ip_address;
@@ -35,7 +35,7 @@ public class OverlayNodeSendsDeregistration implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION;
+		return Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION.getType();
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class OverlayNodeSendsDeregistration implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION ); // write the message type
+		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION.getType() ); // write the message type
 		dout.writeByte( IP.length() ); // write the length of the ip string
 		dout.writeBytes( IP );	// write ip string
 		dout.writeInt(5000);	// write port number

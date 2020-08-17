@@ -4,7 +4,7 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class RegistryRequestsTaskInitiate implements Event, Protocol {
+public class RegistryRequestsTaskInitiate implements Event {
 
 	public int num_packets;
 
@@ -26,7 +26,7 @@ public class RegistryRequestsTaskInitiate implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REQUESTS_TASK_INITIATE;
+		return Protocol.REGISTRY_REQUESTS_TASK_INITIATE.getType();
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class RegistryRequestsTaskInitiate implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.REGISTRY_REQUESTS_TASK_INITIATE );
+		dout.writeByte( Protocol.REGISTRY_REQUESTS_TASK_INITIATE.getType() );
 		dout.writeInt( num_packets_to_send );
 		dout.flush();
 

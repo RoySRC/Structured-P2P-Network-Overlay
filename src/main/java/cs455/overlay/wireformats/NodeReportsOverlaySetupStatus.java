@@ -3,7 +3,7 @@ package cs455.overlay.wireformats;
 import java.io.*;
 import cs455.overlay.util.Util;
 
-public class NodeReportsOverlaySetupStatus implements Event, Protocol {
+public class NodeReportsOverlaySetupStatus implements Event {
 
 	public int successStatus;
 	public String informationString = null;
@@ -29,7 +29,7 @@ public class NodeReportsOverlaySetupStatus implements Event, Protocol {
 	
 	@Override
 	public int getType() {
-		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS;
+		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getType();
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class NodeReportsOverlaySetupStatus implements Event, Protocol {
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
-		dout.writeByte( Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS );
+		dout.writeByte( Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getType() );
 		dout.writeInt( 10 );
 		dout.writeByte( informationString.length() );
 		dout.writeBytes( informationString );

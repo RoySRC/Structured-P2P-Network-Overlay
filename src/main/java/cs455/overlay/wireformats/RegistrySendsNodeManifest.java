@@ -7,7 +7,7 @@ import cs455.overlay.util.Util;
 import cs455.overlay.routing.RoutingEntry;
 import cs455.overlay.routing.RoutingTable;
 
-public class RegistrySendsNodeManifest implements Event, Protocol{
+public class RegistrySendsNodeManifest implements Event {
 
 	public RoutingTable routing_table = null;	// routing table associated with a node
 	public ArrayList<Integer> node_IDs = new ArrayList<>();	// node IDs of all the nodes in the system
@@ -56,7 +56,7 @@ public class RegistrySendsNodeManifest implements Event, Protocol{
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_SENDS_NODE_MANIFEST;
+		return Protocol.REGISTRY_SENDS_NODE_MANIFEST.getType();
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class RegistrySendsNodeManifest implements Event, Protocol{
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
 
 		int routing_size = 12;
-		dout.writeByte( Protocol.REGISTRY_SENDS_NODE_MANIFEST );
+		dout.writeByte( Protocol.REGISTRY_SENDS_NODE_MANIFEST.getType() );
 		dout.writeByte( routing_size );
 
 		for (int i=0; i < routing_size; ++i) {
