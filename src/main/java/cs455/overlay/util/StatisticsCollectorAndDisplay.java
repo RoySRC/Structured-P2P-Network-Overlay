@@ -29,11 +29,6 @@ public class StatisticsCollectorAndDisplay {
   private long receiveSummation = 0;
 
   /**
-   * Constructor
-   */
-  public StatisticsCollectorAndDisplay() {}
-
-  /**
    * Copy the contents of S into {@this}.
    * @param S
    */

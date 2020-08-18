@@ -392,7 +392,7 @@ public class Peer implements Node {
 
                 case "disable-logging":
                     log.log_status = false;
-                    break
+                    break;
 
                 default:
                     break;

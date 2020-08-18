@@ -2,6 +2,10 @@ package cs455.overlay.node;
 
 public class MessagingNode {
 
+	MessagingNode() {
+		// Empty private constructor to prevent external initialization.
+	}
+
 	public static void main(String args[]) throws Exception {
 		Peer messaging_node = new Peer(args[0], Integer.parseInt(args[1]));		
 
