@@ -14,7 +14,10 @@ public class EventFactory {
 	 */
 	private static final EventFactory instance = new EventFactory();
 
-	private HashMap<Integer, Protocol> eventProtocolMap = new HashMap<>() {{
+	/**
+	 *
+	 */
+	public HashMap<Integer, Protocol> eventProtocolMap = new HashMap<>() {{
 		for (Protocol protocol : Protocol.values()) {
 			put(protocol.getType(), protocol);
 		}
@@ -54,47 +57,7 @@ public class EventFactory {
 	 */
 	public Event createEvent(byte[] marshalledBytes) throws IOException {	
 		int event = getType(marshalledBytes);
-		if (event < Integer.MAX_VALUE) {
-
-		}
-//		switch (getType(marshalledBytes)) {
-//		case Protocol.OVERLAY_NODE_SENDS_REGISTRATION:
-//			return new OverlayNodeSendsRegistration(marshalledBytes);
-//
-//		case Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS:
-//			return new RegistryReportsRegistrationStatus(marshalledBytes);
-//
-//		case Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION:
-//			return new OverlayNodeSendsDeregistration(marshalledBytes);
-//
-//		case Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS:
-//			return new RegistryReportsDeregistrationStatus(marshalledBytes);
-//
-//		case Protocol.REGISTRY_SENDS_NODE_MANIFEST:
-//			return new RegistrySendsNodeManifest(marshalledBytes);
-//
-//		case Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS:
-//			return new NodeReportsOverlaySetupStatus(marshalledBytes);
-//
-//		case Protocol.REGISTRY_REQUESTS_TASK_INITIATE:
-//			return new RegistryRequestsTaskInitiate(marshalledBytes);
-//
-//		case Protocol.OVERLAY_NODE_SENDS_DATA:
-//			return new OverlayNodeSendsData(marshalledBytes);
-//
-//		case Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED:
-//			return new OverlayNodeReportsTaskFinished(marshalledBytes);
-//
-//		case Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY:
-//			return new RegistryRequestsTrafficSummary(marshalledBytes);
-//
-//		case Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY:
-//			return new OverlayNodeReportsTrafficSummary(marshalledBytes);
-//
-//		default:
-//			throw new IllegalStateException("Event could not be created, unknown event type.");
-//		}
-	
+		return eventProtocolMap.get(event).getEventObject(marshalledBytes);
 	}
 	
 }

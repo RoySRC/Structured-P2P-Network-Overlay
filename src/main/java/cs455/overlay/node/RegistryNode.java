@@ -455,25 +455,25 @@ public class RegistryNode implements Node{
 
 	@Override
 	public void onEvent(Event e, String IpPort) throws Exception {
-		switch (e.getType()) {
+		switch (EventFactory.getInstance().eventProtocolMap.get(e.getType())) {
 
-			case Protocol.OVERLAY_NODE_SENDS_REGISTRATION:
+			case OVERLAY_NODE_SENDS_REGISTRATION:
 				OverlayNodeSendsRegistrationHandler(e, connectionsCache.getTCPConnection(IpPort));
 				break;
 
-			case Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION:
+			case OVERLAY_NODE_SENDS_DEREGISTRATION:
 				OverlayNodeSendsDeregistrationHandler(e, connectionsCache.getTCPConnection(IpPort));
 				break;
 
-			case Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS:
+			case NODE_REPORTS_OVERLAY_SETUP_STATUS:
 				OverlaySetupStatusHandler(e);
 				break;
 
-			case Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED:
+			case OVERLAY_NODE_REPORTS_TASK_FINISHED:
 				OverlayNodeReportsTaskFinishedHandler(e);
 				break;
 
-			case Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY:
+			case OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY:
 				OverlayNodeReportsTrafficSummaryHandler(e);
 				printOverlayTrafficSummary();
 				break;
