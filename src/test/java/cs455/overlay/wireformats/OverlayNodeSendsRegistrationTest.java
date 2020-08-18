@@ -36,7 +36,6 @@ public class OverlayNodeSendsRegistrationTest extends TestCase {
         OverlayNodeSendsRegistration e = new OverlayNodeSendsRegistration(getMarshalledByte());
         assertEquals(e.ip_address, IP);
         assertEquals(e.port, 5000);
-        assertEquals(e.type, Protocol.OVERLAY_NODE_SENDS_REGISTRATION.getValue());
     }
 
     @Test

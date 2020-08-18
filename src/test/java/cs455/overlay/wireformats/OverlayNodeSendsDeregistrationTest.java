@@ -36,7 +36,6 @@ public class OverlayNodeSendsDeregistrationTest extends TestCase {
     @Test
     public void testCreation() throws IOException {
         OverlayNodeSendsDeregistration e = new OverlayNodeSendsDeregistration(getMarshalledByte());
-        assertEquals(e.type, Protocol.OVERLAY_NODE_SENDS_DEREGISTRATION.getValue());
         assertEquals(e.ip_address, IP);
         assertEquals(e.port, port);
         assertEquals(e.nodeID, nodeID);

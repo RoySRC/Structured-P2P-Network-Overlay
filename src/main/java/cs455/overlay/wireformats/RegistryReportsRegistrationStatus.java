@@ -19,10 +19,10 @@ public class RegistryReportsRegistrationStatus implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = (int)din.readByte();
+		din.readByte();
 
 		// get success status
-		successStatus = (int)din.readInt();
+		successStatus = din.readInt();
 
 		// get the information string
 		informationString = Util.readString(din);
@@ -38,7 +38,7 @@ public class RegistryReportsRegistrationStatus implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -59,8 +59,8 @@ public class RegistryReportsRegistrationStatus implements Event {
 	@Override
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    Success Status: "+successStatus);
-		System.out.println("    Information String: "+informationString);
+		System.out.println(NodeReportsOverlaySetupStatus.SUCCESS_STATUS +successStatus);
+		System.out.println(NodeReportsOverlaySetupStatus.INFORMATION_STRING +informationString);
 	}
 
 	public String toString() {

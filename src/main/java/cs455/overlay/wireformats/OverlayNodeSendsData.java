@@ -20,19 +20,19 @@ public class OverlayNodeSendsData implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = (int)din.readByte();
+		din.readByte();
 
 		// get the destination ID
-		destinationID = (int)din.readInt();
+		destinationID = din.readInt();
 
 		// get the source ID
-		sourceID = (int)din.readInt();
+		sourceID = din.readInt();
 
 		// get payload
-		payload = (int)din.readInt();
+		payload = din.readInt();
 
 		// get packet_trace length
-		int packet_trace_length = (int)din.readInt();
+		int packet_trace_length = din.readInt();
 
 		// get packet trace
 		for (int i=0; i < packet_trace_length; ++i) {
@@ -45,7 +45,7 @@ public class OverlayNodeSendsData implements Event {
 
 	/**
 	 * Insert a node ID in the packet trace array
-	 * @param nodeID
+	 * @param nodeID The id of the node
 	 */
 	public void insertInPacketTrace(int nodeID) {
 		this.packet_trace.add(nodeID);
@@ -58,7 +58,7 @@ public class OverlayNodeSendsData implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -91,7 +91,7 @@ public class OverlayNodeSendsData implements Event {
 		System.out.println("    Source ID: "+sourceID);
 		System.out.println("    Payload: "+payload);
 		System.out.println("    Packet Trace Length: "+packet_trace.size());
-		System.out.printf("    PacketTrace: |");
+		System.out.print("    PacketTrace: |");
 		this.printPacketTrace();
 	}
 

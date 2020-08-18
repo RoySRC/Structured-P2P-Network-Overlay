@@ -34,12 +34,13 @@ public class RegistryRequestsTrafficSummaryTest extends TestCase {
 
     @Test
     public void testCreation() throws IOException {
-        RegistryRequestsTrafficSummary e = new RegistryRequestsTrafficSummary(getMarshalledByte());
+        RegistryRequestsTrafficSummary e = new RegistryRequestsTrafficSummary();
+        assert e instanceof RegistryRequestsTrafficSummary;
     }
 
     @Test
     public void testMarshalling() throws IOException {
-        RegistryRequestsTrafficSummary e = new RegistryRequestsTrafficSummary(getMarshalledByte());
+        RegistryRequestsTrafficSummary e = new RegistryRequestsTrafficSummary();
         byte[] expected = new byte[] {(byte) Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY.getValue()};
         assertArrayEquals(e.getBytes(), expected);
     }

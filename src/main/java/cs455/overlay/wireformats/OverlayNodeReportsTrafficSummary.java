@@ -21,7 +21,7 @@ public class OverlayNodeReportsTrafficSummary implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = (int)din.readByte();
+		din.readByte();
 
 		// get the node ID
 		nodeID = din.readInt();
@@ -57,7 +57,7 @@ public class OverlayNodeReportsTrafficSummary implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));

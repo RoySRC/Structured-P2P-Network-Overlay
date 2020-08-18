@@ -35,7 +35,6 @@ public class RegistryReportsDeregistrationStatusTest extends TestCase {
     @Test
     public void testCreation() throws IOException {
         RegistryReportsDeregistrationStatus e = new RegistryReportsDeregistrationStatus(getMarshalledByte());
-        assertEquals(e.type, Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS.getValue());
         assertEquals(e.successStatus, 55);
         assertEquals(e.informationString, informationString);
     }

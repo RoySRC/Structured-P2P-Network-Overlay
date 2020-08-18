@@ -4,6 +4,8 @@ import java.io.*;
 import cs455.overlay.util.Util;
 
 public class NodeReportsOverlaySetupStatus implements Event {
+	public static final String SUCCESS_STATUS = "    Success Status: ";
+	public static final String INFORMATION_STRING = "    Information String: ";
 	public int successStatus;
 	public String informationString = null;
 
@@ -18,7 +20,7 @@ public class NodeReportsOverlaySetupStatus implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = Util.readType(din);
+		Util.readType(din);
 		
 		// get the success status
 		successStatus = din.readInt();
@@ -37,7 +39,7 @@ public class NodeReportsOverlaySetupStatus implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -57,8 +59,8 @@ public class NodeReportsOverlaySetupStatus implements Event {
 	@Override
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    Success Status: "+successStatus);
-		System.out.println("    Information String: "+informationString);
+		System.out.println(SUCCESS_STATUS +successStatus);
+		System.out.println(INFORMATION_STRING +informationString);
 	}
 
 	public String toString() {
