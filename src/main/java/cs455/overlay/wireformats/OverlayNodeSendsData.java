@@ -3,13 +3,16 @@ package cs455.overlay.wireformats;
 import java.io.*;
 import java.util.*;
 
-public class OverlayNodeSendsData implements Event, Protocol {
-
+public class OverlayNodeSendsData implements Event {
 	public int destinationID;
 	public int sourceID;
 	public int payload;
 	public ArrayList<Integer> packet_trace = new ArrayList<>();
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeSendsData() {}
 
 	public OverlayNodeSendsData(byte[] marshalledBytes) throws IOException {
@@ -50,7 +53,7 @@ public class OverlayNodeSendsData implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_SENDS_DATA;
+		return Protocol.OVERLAY_NODE_SENDS_DATA.getValue();
 	}
 
 	@Override
@@ -95,30 +98,4 @@ public class OverlayNodeSendsData implements Event, Protocol {
 	public String toString() {
 		return "OVERLAY_NODE_SENDS_DATA";
 	}
-
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_DATA );
-		dout.writeInt( 10 );
-		dout.writeInt( 0 );
-		dout.writeInt( 3724920 );
-		dout.writeInt( 3 );
-		for (int i=0; i < 3; ++i) dout.writeInt( i );
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

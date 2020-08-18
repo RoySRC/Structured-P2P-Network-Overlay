@@ -7,11 +7,14 @@ import cs455.overlay.util.Util;
 import cs455.overlay.routing.RoutingEntry;
 import cs455.overlay.routing.RoutingTable;
 
-public class RegistrySendsNodeManifest implements Event, Protocol{
-
+public class RegistrySendsNodeManifest implements Event {
 	public RoutingTable routing_table = null;	// routing table associated with a node
 	public ArrayList<Integer> node_IDs = new ArrayList<>();	// node IDs of all the nodes in the system
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistrySendsNodeManifest() {}
 	
 	public RegistrySendsNodeManifest(byte[] marshalledBytes) throws IOException {
@@ -56,7 +59,7 @@ public class RegistrySendsNodeManifest implements Event, Protocol{
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_SENDS_NODE_MANIFEST;
+		return Protocol.REGISTRY_SENDS_NODE_MANIFEST.getValue();
 	}
 
 	@Override
@@ -100,40 +103,4 @@ public class RegistrySendsNodeManifest implements Event, Protocol{
 	public String toString() {
 		return "REGISTRY_SENDS_NODE_MANIFEST";
 	}
-
-	public static void main (String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		int routing_size = 12;
-		dout.writeByte( Protocol.REGISTRY_SENDS_NODE_MANIFEST );
-		dout.writeByte( routing_size );
-
-		for (int i=0; i < routing_size; ++i) {
-			dout.writeInt( Util.randInt(0, Util.MAX_NODES-1) );	// node ID
-			String IP = Util.generateRandomIP();
-			dout.writeByte( IP.length() );	// length of the IP address
-			dout.writeBytes( IP );	// IP address
-			dout.writeInt( Util.randInt(1025, 5000) );	// port number
-		}
-		int num_nodes = 10;	// number of nodes in the system
-		dout.writeInt(num_nodes);
-		for (int i=0; i<num_nodes; ++i)
-			dout.writeInt( Util.randInt(0, Util.MAX_NODES-1) );
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
-
 }

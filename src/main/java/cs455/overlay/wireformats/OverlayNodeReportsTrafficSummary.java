@@ -2,8 +2,7 @@ package cs455.overlay.wireformats;
 
 import java.io.*;
 
-public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
-
+public class OverlayNodeReportsTrafficSummary implements Event {
 	public int nodeID;							// ID of the messaging node
 	public int num_sent_packets;				// total number of packets sent by the messaging node
 	public int num_relayed_packets;			// total number of packets relayed
@@ -11,6 +10,10 @@ public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
 	public int num_received_packets;			// total number of packets received by the messaging node
 	public long received_packet_payload_sum;	// sum of payloads in the packets that were received
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeReportsTrafficSummary() {}
 
 	public OverlayNodeReportsTrafficSummary(byte[] marshalledBytes) throws IOException {
@@ -49,7 +52,7 @@ public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY;
+		return Protocol.OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY.getValue();
 	}
 
 	@Override
@@ -88,31 +91,4 @@ public class OverlayNodeReportsTrafficSummary implements Event, Protocol {
 	public String toString() {
 		return "OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY";
 	}
-
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.REGISTRY_REQUESTS_TRAFFIC_SUMMARY ); // write the message type
-		dout.writeInt( 55 );
-		dout.writeInt( 1200 );
-		dout.writeInt( 1300 );
-		dout.writeLong( 1400 );
-		dout.writeInt( 1500 );
-		dout.writeLong( 1600 );
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

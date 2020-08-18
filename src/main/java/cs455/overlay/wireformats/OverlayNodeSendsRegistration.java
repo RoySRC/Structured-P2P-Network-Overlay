@@ -4,12 +4,15 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class OverlayNodeSendsRegistration implements Event, Protocol{
-
+public class OverlayNodeSendsRegistration implements Event {
 	public String ip_address; // ip address of the client running on the messaging node
 	public int port; // this is the port of the server running on the messaging node
 	public int type;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeSendsRegistration() {}
 	
 	/**
@@ -43,7 +46,7 @@ public class OverlayNodeSendsRegistration implements Event, Protocol{
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_SENDS_REGISTRATION;
+		return Protocol.OVERLAY_NODE_SENDS_REGISTRATION.getValue();
 	}
 
 	/**
@@ -72,29 +75,4 @@ public class OverlayNodeSendsRegistration implements Event, Protocol{
 	public String toString() {
 		return "OVERLAY_NODE_SENDS_REGISTRATION";
 	}
-
-	public static void main(String args[]) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		String IP = "192.168.1.7";
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.OVERLAY_NODE_SENDS_REGISTRATION ); // write the message type
-		dout.writeByte( IP.length() ); // write the length of the ip string
-		dout.writeBytes( IP );	// write ip string
-		dout.writeInt(5000);	// write port number
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

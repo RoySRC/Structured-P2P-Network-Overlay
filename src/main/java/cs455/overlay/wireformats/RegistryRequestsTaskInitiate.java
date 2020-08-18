@@ -4,10 +4,13 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class RegistryRequestsTaskInitiate implements Event, Protocol {
-
+public class RegistryRequestsTaskInitiate implements Event {
 	public int num_packets;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistryRequestsTaskInitiate() {}
 
 	public RegistryRequestsTaskInitiate(byte[] marshalledBytes) throws IOException {
@@ -26,7 +29,7 @@ public class RegistryRequestsTaskInitiate implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REQUESTS_TASK_INITIATE;
+		return Protocol.REGISTRY_REQUESTS_TASK_INITIATE.getValue();
 	}
 
 	@Override
@@ -55,27 +58,4 @@ public class RegistryRequestsTaskInitiate implements Event, Protocol {
 	public String toString() {
 		return "REGISTRY_REQUESTS_TASK_INITIATE";
 	}
-
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		int num_packets_to_send = 5;
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.REGISTRY_REQUESTS_TASK_INITIATE );
-		dout.writeInt( num_packets_to_send );
-		dout.flush();
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

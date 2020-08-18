@@ -3,11 +3,14 @@ package cs455.overlay.wireformats;
 import java.io.*;
 import cs455.overlay.util.Util;
 
-public class NodeReportsOverlaySetupStatus implements Event, Protocol {
-
+public class NodeReportsOverlaySetupStatus implements Event {
 	public int successStatus;
 	public String informationString = null;
-	
+
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public NodeReportsOverlaySetupStatus() {}
 	
 	public NodeReportsOverlaySetupStatus(byte[] marshalledBytes) throws IOException {
@@ -29,7 +32,7 @@ public class NodeReportsOverlaySetupStatus implements Event, Protocol {
 	
 	@Override
 	public int getType() {
-		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS;
+		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getValue();
 	}
 
 	@Override
@@ -61,30 +64,4 @@ public class NodeReportsOverlaySetupStatus implements Event, Protocol {
 	public String toString() {
 		return "NODE_REPORTS_OVERLAY_SETUP_STATUS";
 	}
-	
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		
-		String informationString = "Successful";
-		
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS );
-		dout.writeInt( 10 );
-		dout.writeByte( informationString.length() );
-		dout.writeBytes( informationString );
-		dout.flush();
-		
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

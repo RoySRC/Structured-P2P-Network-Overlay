@@ -4,11 +4,14 @@ import java.io.*;
 
 import cs455.overlay.util.Util;
 
-public class RegistryReportsRegistrationStatus implements Event, Protocol {
-
+public class RegistryReportsRegistrationStatus implements Event {
 	public int successStatus;
 	public String informationString;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistryReportsRegistrationStatus() {}
 	
 	public RegistryReportsRegistrationStatus(byte[] marshalledBytes) throws IOException {
@@ -30,7 +33,7 @@ public class RegistryReportsRegistrationStatus implements Event, Protocol {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS;
+		return Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS.getValue();
 	}
 
 	@Override
@@ -63,30 +66,4 @@ public class RegistryReportsRegistrationStatus implements Event, Protocol {
 	public String toString() {
 		return "REGISTRY_REPORTS_REGISTRATION_STATUS";
 	}
-
-	public static void main(String args[]) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		String informationString = "Registration request " +
-				"successful. The number of messaging nodes currently constituting the overlay is (5)";
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS ); // write the message type
-		dout.writeInt( 55 ); // write the success status
-		dout.writeByte( informationString.length() );	// write length of informationString
-		dout.writeBytes(informationString);	// write the information string
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }
