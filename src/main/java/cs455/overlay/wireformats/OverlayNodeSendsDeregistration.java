@@ -5,7 +5,7 @@ import java.io.*;
 import cs455.overlay.util.Util;
 
 public class OverlayNodeSendsDeregistration implements Event {
-	public int type;
+	public static final String IP_ADDRESS = "    IP Address: ";
 	public String ip_address;
 	public int port;
 	public int nodeID;
@@ -21,7 +21,7 @@ public class OverlayNodeSendsDeregistration implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		type = (int)din.readByte();
+		din.readByte();
 
 		// get the ip string
 		ip_address = Util.readString(din);
@@ -43,7 +43,7 @@ public class OverlayNodeSendsDeregistration implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -65,8 +65,7 @@ public class OverlayNodeSendsDeregistration implements Event {
 	@Override
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    Type: "+type);
-		System.out.println("    IP Address: "+ip_address);
+		System.out.println(IP_ADDRESS +ip_address);
 		System.out.println("    Port: "+port);
 		System.out.println("    Node ID: "+nodeID);
 	}

@@ -20,7 +20,7 @@ public class OverlayNodeReportsTaskFinished implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = (int)din.readByte();
+		din.readByte();
 
 		// get the IP address of the node
 		ip_address = Util.readString(din);
@@ -42,7 +42,7 @@ public class OverlayNodeReportsTaskFinished implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -63,7 +63,7 @@ public class OverlayNodeReportsTaskFinished implements Event {
 	@Override
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    IP Address: "+ip_address);
+		System.out.println(OverlayNodeSendsDeregistration.IP_ADDRESS +ip_address);
 		System.out.println("    Port: "+port);
 		System.out.println("    Node ID: "+nodeID);
 	}

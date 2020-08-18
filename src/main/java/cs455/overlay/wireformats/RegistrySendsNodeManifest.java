@@ -22,10 +22,10 @@ public class RegistrySendsNodeManifest implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = (int)din.readByte();
+		din.readByte();
 
 		// get the routing table size
-		int routing_table_size = (int)din.readByte();
+		int routing_table_size = din.readByte();
 
 		// create the routing table
 		routing_table = new RoutingTable(routing_table_size);
@@ -64,7 +64,7 @@ public class RegistrySendsNodeManifest implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -95,7 +95,7 @@ public class RegistrySendsNodeManifest implements Event {
 		System.out.println("Routing Table:");
 		routing_table.print();
 		System.out.println("Number of nodes in the system: "+node_IDs.size());
-		System.out.printf("Node IDs: ");
+		System.out.print("Node IDs: ");
 		for (int id : node_IDs) System.out.printf("%s ", id);
 		System.out.println();
 	}

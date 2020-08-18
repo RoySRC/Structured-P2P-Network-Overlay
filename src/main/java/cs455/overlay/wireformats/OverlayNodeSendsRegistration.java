@@ -7,7 +7,6 @@ import cs455.overlay.util.Util;
 public class OverlayNodeSendsRegistration implements Event {
 	public String ip_address; // ip address of the client running on the messaging node
 	public int port; // this is the port of the server running on the messaging node
-	public int type;
 
 	/**
 	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
@@ -17,15 +16,15 @@ public class OverlayNodeSendsRegistration implements Event {
 	
 	/**
 	 * Read marshalled bytes and populate private member variables
-	 * @param marshalledBytes
-	 * @throws IOException
+	 * @param marshalledBytes Marshalled byte representation of the event
+	 * @throws IOException Throw exception if marshalled byte cannot be read
 	 */
 	public OverlayNodeSendsRegistration(byte[] marshalledBytes) throws IOException {
 		ByteArrayInputStream baInputStream = new ByteArrayInputStream(marshalledBytes);
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		type = (int)din.readByte();
+		din.readByte();
 
 		// get the ip string
 		ip_address = Util.readString(din);
@@ -39,8 +38,7 @@ public class OverlayNodeSendsRegistration implements Event {
 
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    Type: "+type);
-		System.out.println("    IP Address: "+ip_address);
+		System.out.println(OverlayNodeSendsDeregistration.IP_ADDRESS +ip_address);
 		System.out.println("    Port: "+port);
 	}
 
@@ -51,11 +49,11 @@ public class OverlayNodeSendsRegistration implements Event {
 
 	/**
 	 * get the marshalled bytes
-	 * @throws IOException
+	 * @throws IOException Throw exception if the marshalled byte cannot be generated
 	 */
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));

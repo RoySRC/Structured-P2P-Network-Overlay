@@ -18,10 +18,10 @@ public class RegistryRequestsTaskInitiate implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		int type = Util.readType(din);
+		Util.readType(din);
 
 		// get the number of packets to send
-		num_packets = (int)din.readInt();
+		num_packets = din.readInt();
 
 		baInputStream.close();
 		din.close();
@@ -34,7 +34,7 @@ public class RegistryRequestsTaskInitiate implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));

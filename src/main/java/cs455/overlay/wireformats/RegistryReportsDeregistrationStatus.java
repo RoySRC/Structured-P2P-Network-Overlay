@@ -3,7 +3,6 @@ package cs455.overlay.wireformats;
 import java.io.*;
 
 public class RegistryReportsDeregistrationStatus implements Event {
-	public int type;
 	public int successStatus;
 	public String informationString;
 
@@ -18,13 +17,13 @@ public class RegistryReportsDeregistrationStatus implements Event {
 		DataInputStream din = new DataInputStream(new BufferedInputStream(baInputStream));
 
 		// get the message type
-		type = (int)din.readByte();
+		din.readByte();
 
 		// get success status
-		successStatus = (int)din.readInt();
+		successStatus = din.readInt();
 
 		// get the information string
-		int informationStringLength = (int)din.readByte();
+		int informationStringLength = din.readByte();
 		byte[] informationStringByteArray = new byte[informationStringLength];
 		din.readFully(informationStringByteArray);
 		informationString = new String ( informationStringByteArray );
@@ -40,7 +39,7 @@ public class RegistryReportsDeregistrationStatus implements Event {
 
 	@Override
 	public byte[] getBytes() throws IOException {
-		byte[] marshalledBytes = null;
+		byte[] marshalledBytes;
 
 		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
 		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
@@ -61,9 +60,8 @@ public class RegistryReportsDeregistrationStatus implements Event {
 	@Override
 	public void print() {
 		System.out.println(this.getClass().getName());
-		System.out.println("    Type: "+type);
-		System.out.println("    Success Status: "+successStatus);
-		System.out.println("    Information String: "+informationString);
+		System.out.println(NodeReportsOverlaySetupStatus.SUCCESS_STATUS +successStatus);
+		System.out.println(NodeReportsOverlaySetupStatus.INFORMATION_STRING +informationString);
 	}
 
 	public String toString() {

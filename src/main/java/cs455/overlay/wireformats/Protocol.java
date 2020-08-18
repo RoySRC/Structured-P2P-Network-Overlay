@@ -60,8 +60,8 @@ public enum Protocol {
 	},
 	REGISTRY_REQUESTS_TRAFFIC_SUMMARY (11) {
 		@Override
-		public Event getEventObject(byte[] marshalledBytes) throws IOException {
-			return new RegistryRequestsTrafficSummary(marshalledBytes);
+		public Event getEventObject(byte[] marshalledBytes) {
+			return new RegistryRequestsTrafficSummary();
 		}
 	},
 	OVERLAY_NODE_REPORTS_TRAFFIC_SUMMARY (12) {
@@ -71,7 +71,7 @@ public enum Protocol {
 		}
 	};
 
-	private int id;
+	private final int id;
 
 	Protocol(int id) {
 		this.id = id;
