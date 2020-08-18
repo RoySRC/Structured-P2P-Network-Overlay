@@ -3,8 +3,7 @@ package cs455.overlay.wireformats;
 import java.io.*;
 
 public class RegistryReportsDeregistrationStatus implements Event {
-
-	private int type;
+	public int type;
 	public int successStatus;
 	public String informationString;
 
@@ -32,7 +31,7 @@ public class RegistryReportsDeregistrationStatus implements Event {
 
 	@Override
 	public int getType() {
-		return Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS.getType();
+		return Protocol.REGISTRY_REPORTS_DEREGISTRATION_STATUS.getValue();
 	}
 
 	@Override
@@ -66,30 +65,4 @@ public class RegistryReportsDeregistrationStatus implements Event {
 	public String toString() {
 		return "REGISTRY_REPORTS_DEREGISTRATION_STATUS";
 	}
-
-	public static void main(String args[]) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		String informationString = "Deregistration request " +
-				"successful. The number of messaging nodes currently constituting the overlay is (5)";
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.REGISTRY_REPORTS_REGISTRATION_STATUS.getType() ); // write the message type
-		dout.writeInt( 55 ); // write the success status
-		dout.writeByte( informationString.length() );	// write length of informationString
-		dout.writeBytes(informationString);	// write the information string
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

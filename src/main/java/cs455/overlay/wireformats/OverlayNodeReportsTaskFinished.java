@@ -5,7 +5,6 @@ import cs455.overlay.util.Util;
 import java.io.*;
 
 public class OverlayNodeReportsTaskFinished implements Event {
-
 	public String ip_address;
 	public int port;
 	public int nodeID;
@@ -34,7 +33,7 @@ public class OverlayNodeReportsTaskFinished implements Event {
 
 	@Override
 	public int getType() {
-		return Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED.getType();
+		return Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED.getValue();
 	}
 
 	@Override
@@ -68,31 +67,4 @@ public class OverlayNodeReportsTaskFinished implements Event {
 	public String toString() {
 		return "OVERLAY_NODE_REPORTS_TASK_FINISHED";
 	}
-
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-
-		String IP = "192.168.1.7";
-
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.OVERLAY_NODE_REPORTS_TASK_FINISHED.getType() );
-		dout.writeByte( IP.length() );
-		dout.writeBytes( IP );
-		dout.writeInt( 5000 );
-		dout.writeInt( 55 );
-		dout.flush();	// flush the stream
-
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

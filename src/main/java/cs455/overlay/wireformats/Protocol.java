@@ -77,7 +77,7 @@ public enum Protocol {
 		this.id = id;
 	}
 
-	public int getType() {
+	public int getValue() {
 		return id;
 	}
 

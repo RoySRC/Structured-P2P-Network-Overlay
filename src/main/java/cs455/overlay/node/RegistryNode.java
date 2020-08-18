@@ -26,7 +26,7 @@ public class RegistryNode implements Node {
     /**
      * Pair a node ID with its IP address and server port
      */
-    private Map<Integer, Map<String, Object>> NodeAddressPortPairMap;
+    private final Map<Integer, Map<String, Object>> NodeAddressPortPairMap;
 
     /**
      * Maps a node ID to its routing table
@@ -349,7 +349,7 @@ public class RegistryNode implements Node {
         boolean all_messaging_nodes_completed = (overlayNodeTaskFinishTracker == connectionsCache.size());
 
         // if all the messaging nodes are done with the task, ask for traffic summary
-        if (all_messaging_nodes_completed == true) {
+        if (all_messaging_nodes_completed) {
             RegistryRequestsTrafficSummary response = new RegistryRequestsTrafficSummary();
             log.info("All messaging nodes have completed their task.");
             log.info("Waiting " + waitTime + " seconds to collect traffic summary.");
@@ -390,12 +390,14 @@ public class RegistryNode implements Node {
      */
     public synchronized void printOverlayTrafficSummary() {
         // Check to see if all the nodes reported traffic summary
-        boolean all_nodes_reported_traffic_summary = (overlayNodeReportsTrafficSummaryMap.size() == connectionsCache.size());
+        boolean all_nodes_reported_traffic_summary =
+                (overlayNodeReportsTrafficSummaryMap.size() == connectionsCache.size());
 
         if (all_nodes_reported_traffic_summary) {
             System.out.printf("\u001B[47m \u001B[30m");
             System.out.printf("%22s|%19s|%19s|%19s|%22s\u001B[0m\n",
-                    "Packets Sent", "Packets Received", "Packets Relayed", "Sum Values Sent", "Sum Values Received");
+                    "Packets Sent", "Packets Received", "Packets Relayed", "Sum Values Sent",
+                    "Sum Values Received");
             long c1 = 0;
             long c2 = 0;
             long c3 = 0;
@@ -413,7 +415,8 @@ public class RegistryNode implements Node {
                 c4 += v.sent_packet_payload_sum;
                 c5 += v.received_packet_payload_sum;
             }
-            System.out.printf("\u001B[47m\u001B[30m Sum: %17s|%19s|%19s|%19s|%22s\u001B[0m\n", c1, c2, c3, c4, c5);
+            System.out.printf("\u001B[47m\u001B[30m Sum: %17s|%19s|%19s|%19s|%22s\u001B[0m\n",
+                    c1, c2, c3, c4, c5);
         }
     }
 
@@ -488,6 +491,7 @@ public class RegistryNode implements Node {
 
             default:
                 System.err.println("Registry Error: Received an unknown event.");
+                break;
         }
     }
 

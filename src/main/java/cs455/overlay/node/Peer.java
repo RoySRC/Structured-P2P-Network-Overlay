@@ -304,7 +304,8 @@ public class Peer implements Node {
         }
 
         // once connecting to other peers are done, send registry node setup status
-        reportOverlaySetupStatus(successStatus, (!failed) ? "Successfully connected to all nodes" : informationString);
+        reportOverlaySetupStatus(successStatus,
+                (!failed) ? "Successfully connected to all nodes" : informationString);
     }
 
     /**
@@ -355,6 +356,7 @@ public class Peer implements Node {
 
             default:
                 log.warning("Unrecognized event: " + e.toString());
+                break;
         }
     }
 
@@ -392,6 +394,7 @@ public class Peer implements Node {
                     log.log_status = false;
 
                 default:
+                    break;
             }
         }
         stdin.close();

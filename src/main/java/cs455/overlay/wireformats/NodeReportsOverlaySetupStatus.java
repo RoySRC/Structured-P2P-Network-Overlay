@@ -4,7 +4,6 @@ import java.io.*;
 import cs455.overlay.util.Util;
 
 public class NodeReportsOverlaySetupStatus implements Event {
-
 	public int successStatus;
 	public String informationString = null;
 	
@@ -29,7 +28,7 @@ public class NodeReportsOverlaySetupStatus implements Event {
 	
 	@Override
 	public int getType() {
-		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getType();
+		return Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getValue();
 	}
 
 	@Override
@@ -61,30 +60,4 @@ public class NodeReportsOverlaySetupStatus implements Event {
 	public String toString() {
 		return "NODE_REPORTS_OVERLAY_SETUP_STATUS";
 	}
-	
-	public static void main(String[] args) throws IOException {
-		// generate the marshalled byte array
-		byte[] data = null;
-		
-		String informationString = "Successful";
-		
-		ByteArrayOutputStream baOutputStream = new ByteArrayOutputStream();
-		DataOutputStream dout = new DataOutputStream(new BufferedOutputStream(baOutputStream));
-
-		dout.writeByte( Protocol.NODE_REPORTS_OVERLAY_SETUP_STATUS.getType() );
-		dout.writeInt( 10 );
-		dout.writeByte( informationString.length() );
-		dout.writeBytes( informationString );
-		dout.flush();
-		
-		data = baOutputStream.toByteArray();
-		baOutputStream.close();
-		dout.close();
-
-		// use the event factory for testing
-		EventFactory factory = EventFactory.getInstance();
-		Event e = factory.createEvent(data);
-		e.print();
-	}
-
 }

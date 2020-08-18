@@ -7,7 +7,7 @@ import java.util.*;
  * singleton class
  * @author sajeeb
  */
-public class EventFactory {
+public final class EventFactory {
 
 	/**
 	 * singleton instance
@@ -19,7 +19,7 @@ public class EventFactory {
 	 */
 	public HashMap<Integer, Protocol> eventProtocolMap = new HashMap<>() {{
 		for (Protocol protocol : Protocol.values()) {
-			put(protocol.getType(), protocol);
+			put(protocol.getValue(), protocol);
 		}
 	}};
 
