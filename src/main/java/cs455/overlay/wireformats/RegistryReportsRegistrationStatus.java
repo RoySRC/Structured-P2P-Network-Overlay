@@ -8,6 +8,10 @@ public class RegistryReportsRegistrationStatus implements Event {
 	public int successStatus;
 	public String informationString;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistryReportsRegistrationStatus() {}
 	
 	public RegistryReportsRegistrationStatus(byte[] marshalledBytes) throws IOException {

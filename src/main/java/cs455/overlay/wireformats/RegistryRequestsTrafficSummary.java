@@ -3,7 +3,12 @@ package cs455.overlay.wireformats;
 import java.io.*;
 
 public class RegistryRequestsTrafficSummary implements Event {
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistryRequestsTrafficSummary() {}
+
 	public RegistryRequestsTrafficSummary(byte[] marshalledBytes) {}
 
 	@Override

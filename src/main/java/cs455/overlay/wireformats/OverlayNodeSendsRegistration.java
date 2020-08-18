@@ -9,6 +9,10 @@ public class OverlayNodeSendsRegistration implements Event {
 	public int port; // this is the port of the server running on the messaging node
 	public int type;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeSendsRegistration() {}
 	
 	/**

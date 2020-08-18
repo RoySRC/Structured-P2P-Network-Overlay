@@ -9,6 +9,10 @@ public class OverlayNodeReportsTaskFinished implements Event {
 	public int port;
 	public int nodeID;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeReportsTaskFinished() {}
 
 	public OverlayNodeReportsTaskFinished(byte[] marshalledBytes) throws IOException {

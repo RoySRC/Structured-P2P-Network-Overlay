@@ -7,6 +7,10 @@ import cs455.overlay.util.Util;
 public class RegistryRequestsTaskInitiate implements Event {
 	public int num_packets;
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistryRequestsTaskInitiate() {}
 
 	public RegistryRequestsTaskInitiate(byte[] marshalledBytes) throws IOException {

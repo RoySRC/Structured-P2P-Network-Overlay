@@ -6,7 +6,11 @@ import cs455.overlay.util.Util;
 public class NodeReportsOverlaySetupStatus implements Event {
 	public int successStatus;
 	public String informationString = null;
-	
+
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public NodeReportsOverlaySetupStatus() {}
 	
 	public NodeReportsOverlaySetupStatus(byte[] marshalledBytes) throws IOException {

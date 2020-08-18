@@ -10,6 +10,10 @@ public class OverlayNodeReportsTrafficSummary implements Event {
 	public int num_received_packets;			// total number of packets received by the messaging node
 	public long received_packet_payload_sum;	// sum of payloads in the packets that were received
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeReportsTrafficSummary() {}
 
 	public OverlayNodeReportsTrafficSummary(byte[] marshalledBytes) throws IOException {

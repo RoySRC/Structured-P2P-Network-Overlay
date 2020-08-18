@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="cs455.overlay.wireformats.RegistryRequestsTrafficSummaryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-08-18T03:14:55" hostname="RazerBlade" time="0.001">
+<testsuite name="cs455.overlay.wireformats.RegistryRequestsTrafficSummaryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-08-18T03:18:07" hostname="RazerBlade" time="0.0">
   <properties/>
   <testcase name="testCreation" classname="cs455.overlay.wireformats.RegistryRequestsTrafficSummaryTest" time="0.0"/>
   <testcase name="testMarshalling" classname="cs455.overlay.wireformats.RegistryRequestsTrafficSummaryTest" time="0.0"/>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="cs455.overlay.wireformats.EventFactoryTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-08-18T03:14:55" hostname="RazerBlade" time="0.023">
+<testsuite name="cs455.overlay.wireformats.EventFactoryTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-08-18T03:18:07" hostname="RazerBlade" time="0.053">
   <properties/>
-  <testcase name="testOverlayNodeReportsTaskFinished" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.002"/>
-  <testcase name="testRegistryReportsRegistrationStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.0"/>
+  <testcase name="testOverlayNodeReportsTaskFinished" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.003"/>
+  <testcase name="testRegistryReportsRegistrationStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
   <testcase name="testOverlayNodeReportsTrafficSummary" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
   <testcase name="testRegistryRequestsTaskInitiate" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.0"/>
   <testcase name="testOverlayNodeSendsDeregistration" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
-  <testcase name="testRegistryReportsDeregistrationStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.0"/>
-  <testcase name="testRegistrySendsNodeManifest" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.011"/>
-  <testcase name="testNodeReportsOverlaySetupStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
-  <testcase name="testOverlayNodeSendsRegistration" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
-  <testcase name="testOverlayNodeSendsData" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.002"/>
+  <testcase name="testRegistryReportsDeregistrationStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.001"/>
+  <testcase name="testRegistrySendsNodeManifest" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.034"/>
+  <testcase name="testNodeReportsOverlaySetupStatus" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.002"/>
+  <testcase name="testOverlayNodeSendsRegistration" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.002"/>
+  <testcase name="testOverlayNodeSendsData" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.003"/>
   <testcase name="testRegistryRequestsTrafficSummary" classname="cs455.overlay.wireformats.EventFactoryTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

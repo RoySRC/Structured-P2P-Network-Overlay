@@ -11,6 +11,10 @@ public class RegistrySendsNodeManifest implements Event {
 	public RoutingTable routing_table = null;	// routing table associated with a node
 	public ArrayList<Integer> node_IDs = new ArrayList<>();	// node IDs of all the nodes in the system
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public RegistrySendsNodeManifest() {}
 	
 	public RegistrySendsNodeManifest(byte[] marshalledBytes) throws IOException {

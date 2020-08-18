@@ -9,6 +9,10 @@ public class OverlayNodeSendsData implements Event {
 	public int payload;
 	public ArrayList<Integer> packet_trace = new ArrayList<>();
 
+	/**
+	 * Empty Constructor for when there is no marshalled byte or just want to generate marshalled byte by
+	 * changing member variables
+	 */
 	public OverlayNodeSendsData() {}
 
 	public OverlayNodeSendsData(byte[] marshalledBytes) throws IOException {
