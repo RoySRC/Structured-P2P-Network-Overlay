@@ -16,11 +16,11 @@ public class Peer implements Node {
     // for logging
     private static final LOGGER log = new LOGGER(Peer.class.getSimpleName());
 
-    private String registry_host = null;
-    private int registry_port;
-    private TCPSenderQueue senderQueue = null;
+    private final String registry_host;
+    private final int registry_port;
+    private final TCPSenderQueue senderQueue;
 
-    private StatisticsCollectorAndDisplay stats = new StatisticsCollectorAndDisplay();
+    private final StatisticsCollectorAndDisplay stats = new StatisticsCollectorAndDisplay();
     public StatisticsCollectorAndDisplay oldStats = new StatisticsCollectorAndDisplay();
 
     /**
