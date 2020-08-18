@@ -14,22 +14,22 @@ public class TCPConnectionsCache {
 	 * String is of the format: IP:Port
 	 * Map a IP:Port String to its TCP Connection
 	 */
-	private HashMap<String, TCPConnection> StringConnectionMap = null;
+	private final HashMap<String, TCPConnection> StringConnectionMap;
 	
 	/**
 	 * Maps a node ID to its TCP Connection
 	 */
-	private HashMap<Integer, TCPConnection> NodeIDConnectionMap = null;
+	private final HashMap<Integer, TCPConnection> NodeIDConnectionMap;
 
 	/**
 	 * Map an IP:Port String to node ID
 	 */
-	private HashMap<String, Integer> StringNodeIDMap = null;
+	private final HashMap<String, Integer> StringNodeIDMap;
 
 	/**
 	 * Store the node ID when a connection is assigned a node ID
 	 */
-	private SortedArrayList<Integer> nodeIDs = null;
+	private final SortedArrayList<Integer> nodeIDs;
 
 	/**
 	 * Constructor does nothing

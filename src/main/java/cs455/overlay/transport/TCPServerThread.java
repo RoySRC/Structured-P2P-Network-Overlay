@@ -23,8 +23,8 @@ public class TCPServerThread implements Runnable {
 	// for logging
 	private static final LOGGER log = new LOGGER(TCPServerThread.class.getSimpleName());
 
-	private ServerSocket server_socket;
-	private Node node = null;
+	private final ServerSocket server_socket;
+	private final Node node;
 	
 	/**
 	 * Constructor for TCPServer class. If port is zero, 

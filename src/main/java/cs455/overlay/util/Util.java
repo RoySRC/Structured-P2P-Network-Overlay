@@ -40,7 +40,7 @@ public class Util {
 	 * @return
 	 */
 	public static int randChoice(ArrayList<Integer> arr) {
-		if (arr.size() == 0) {
+		if (arr.isEmpty()) {
 			log.error("randChoice() Received empty array list");
 			System.exit(-1);
 		}

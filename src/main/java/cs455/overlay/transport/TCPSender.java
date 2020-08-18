@@ -12,9 +12,9 @@ public class TCPSender {
 	// for logging
 	private static final LOGGER log = new LOGGER(TCPSender.class.getSimpleName());
 
-	private Socket socket;
-	private DataOutputStream dout;
-	private Node node = null;
+	private final Socket socket;
+	private final DataOutputStream dout;
+	private final Node node;
 
 	public TCPSender(Socket socket, Node node) throws IOException {
 		this.node = node;
