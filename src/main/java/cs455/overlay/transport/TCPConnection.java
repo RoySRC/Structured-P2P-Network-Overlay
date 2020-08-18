@@ -16,8 +16,8 @@ public class TCPConnection {
 	// TCP sender and receiver objects
 	private TCPSender tcp_sender = null;
 	private TCPReceiverThread tcp_receiver = null;
-	private Socket socket;
-	private Node node;
+	private final Socket socket;
+	private final Node node;
 	
 	public TCPConnection(Socket socket, Node node) {
 		this.node = node;

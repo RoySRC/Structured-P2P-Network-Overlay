@@ -15,10 +15,10 @@ public class TCPReceiverThread implements Runnable {
 	// for logging
 	private static final LOGGER log = new LOGGER(TCPReceiverThread.class.getSimpleName());
 
-	private Socket socket = null;
-	private DataInputStream din = null;
-	private Node node = null;
-	private TCPSender tcp_sender = null;
+	private final Socket socket;
+	private final DataInputStream din;
+	private final Node node;
+	private final TCPSender tcp_sender;
 	private volatile boolean _kill_ = false;
 
 	public TCPReceiverThread(Socket socket, Node node, TCPSender tcp_sender) throws IOException {
