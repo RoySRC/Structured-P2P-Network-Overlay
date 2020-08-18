@@ -1,3 +1,6 @@
+![](https://www.code-inspector.com/project/12369/score/svg?branch=master)
+![](https://www.code-inspector.com/project/12369/status/svg?branch=master)
+
 # Structured-P2P-Network-Overlay
 
 The objective of this project is to get familiar with coding in a 
