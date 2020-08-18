@@ -97,7 +97,7 @@ public class TCPConnection {
 	 * @throws IOException
 	 */
 	public void startTCPSender() throws IOException {
-		tcp_sender = new TCPSender(socket, node);
+		tcp_sender = new TCPSender(socket);
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class TCPConnection {
 	 * @throws IOException
 	 */
 	public void startTCPReceiver() throws IOException {
-		tcp_receiver =  new TCPReceiverThread(socket, this.node, tcp_sender);
+		tcp_receiver =  new TCPReceiverThread(socket, this.node);
 		new Thread( tcp_receiver ).start();
 	}
 
