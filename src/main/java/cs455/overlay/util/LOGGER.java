@@ -18,7 +18,7 @@ public class LOGGER {
   public boolean log_status = false;
 
   private synchronized void print(String color, String msgType, String msg) {
-    if (log_status == true) {
+    if (log_status) {
       System.out.print(color);
       System.out.print("["+msgType+"]: ");
       System.out.print(ANSI_RESET);
