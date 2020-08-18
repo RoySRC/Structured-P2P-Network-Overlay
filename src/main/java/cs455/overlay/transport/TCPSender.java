@@ -14,16 +14,15 @@ public class TCPSender {
 
 	private final Socket socket;
 	private final DataOutputStream dout;
-	private final Node node;
 
-	public TCPSender(Socket socket, Node node) throws IOException {
-		this.node = node;
+	public TCPSender(Socket socket) throws IOException {
 		this.socket = socket;
 		dout = new DataOutputStream(this.socket.getOutputStream());
 	}
 
 	public void kill() throws IOException {
 		log.info("Initiated kill.");
+		socket.close();
 		dout.close();
 	}
 

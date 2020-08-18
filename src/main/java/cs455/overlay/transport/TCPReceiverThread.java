@@ -18,11 +18,9 @@ public class TCPReceiverThread implements Runnable {
 	private final Socket socket;
 	private final DataInputStream din;
 	private final Node node;
-	private final TCPSender tcp_sender;
 	private volatile boolean _kill_ = false;
 
-	public TCPReceiverThread(Socket socket, Node node, TCPSender tcp_sender) throws IOException {
-		this.tcp_sender = tcp_sender;
+	public TCPReceiverThread(Socket socket, Node node) throws IOException {
 		this.node = node;
 		this.socket = socket;
 		din = new DataInputStream(this.socket.getInputStream());
